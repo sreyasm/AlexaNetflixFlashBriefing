@@ -1,6 +1,15 @@
 def lambda_handler(event, context):
+    # USA Netflix
     usa_dict = get_content_for_region("usa")
-    save_to_s3("usa",generate_json_from_dict("usa",usa_dict))
+    save_to_s3("usa", generate_json_from_dict("usa",usa_dict))
+
+    # UK Netflix
+    uk_dict = get_content_for_region("uk")
+    save_to_s3("uk", generate_json_from_dict("uk", uk_dict))
+
+    # ANZ Netflix
+    anz_dict = get_content_for_region("anz")
+    save_to_s3("anz", generate_json_from_dict("anz", uk_dict))
     return "success"
 
 
@@ -11,8 +20,12 @@ def get_content_for_region(region):
     html_raw = requests.get("https://" + region + ".newonnetflix.info/").content
     html_tree = html.fromstring(html_raw)
 
-    removed_content = map(str.strip, html_tree.xpath("/html/body/div[1]/section/a/span/text()"))
-    added_content = map(str.strip, html_tree.xpath("/html/body/div[1]/article/header/h1/a/text()"))
+    removed_content = map(str.strip, html_tree.xpath("/html/body/div/section/a/span/text()"))
+    added_content = map(str.strip, html_tree.xpath("/html/body/div/article/header/h1/a/text()"))
+
+    # Some regions' websites do not have a hyperlink for the movie information
+    if all(False for _ in added_content):
+        added_content = map(str.strip, html_tree.xpath("/html/body/div/article/header/h1/text()"))
 
     return {
             "removed":list(removed_content),
