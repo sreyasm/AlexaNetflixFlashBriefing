@@ -1,7 +1,7 @@
 def lambda_handler(event, context):
     usa_dict = get_content_for_region("usa")
-    print(usa_dict)
     save_to_s3("usa",generate_json_from_dict("usa",usa_dict))
+    return "success"
 
 
 def get_content_for_region(region):
