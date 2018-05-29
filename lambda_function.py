@@ -9,9 +9,8 @@ def lambda_handler(event, context):
 
     # ANZ Netflix
     anz_dict = get_content_for_region("anz")
-    save_to_s3("anz", generate_json_from_dict("anz", uk_dict))
+    save_to_s3("anz", generate_json_from_dict("anz", anz_dict))
     return "success"
-
 
 def get_content_for_region(region):
     import requests
