@@ -12,6 +12,8 @@ def lambda_handler(event, context):
     save_to_s3("anz", generate_json_from_dict("anz", anz_dict))
     return "success"
 
+# This function returns a dictionary of two lists of strings with keys: "added" and "removed"
+# This contains the added and removed content for a given region.
 def get_content_for_region(region):
     import requests
     from lxml import html
@@ -32,6 +34,8 @@ def get_content_for_region(region):
     }
 
 
+# Returns the text that AVS should dictate given the dictionary returned from
+# get_content_for_region(region)
 def generate_speech_from_content(content):
     speech = "The TV shows and movies removed from Netflix this week are: "
     speech += speech_list_builder(content["removed"])
@@ -44,6 +48,7 @@ def generate_speech_from_content(content):
     return speech
 
 
+# Helper function to convert a list of movies to a single speakable string.
 def speech_list_builder(movies):
     speech = ""
     for movie in movies[:-1]:
@@ -52,6 +57,8 @@ def speech_list_builder(movies):
     return speech
 
 
+# Generates the JSON payload that AVS needs given the region and dictionary
+# returned from get_content_from_region
 def generate_json_from_dict(region, source_dict):
     import json
     import uuid
@@ -66,6 +73,8 @@ def generate_json_from_dict(region, source_dict):
     return json.dumps(json_dict)
 
 
+# Uploads the JSON document to an S3 bucket given the region
+# and JSON data as a string
 def save_to_s3(region, json_data):
     import boto3
     BUCKET_NAME = "new-on-netflix-feeds"
