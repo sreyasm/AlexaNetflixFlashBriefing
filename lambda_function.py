@@ -16,6 +16,7 @@ def lambda_handler(event, context):
     save_to_s3("can", generate_json_from_dict("can", can_dict))
     return "success"
 
+
 # This function returns a dictionary of two lists of strings with keys: "added" and "removed"
 # This contains the added and removed content for a given region.
 def get_content_for_region(region):
