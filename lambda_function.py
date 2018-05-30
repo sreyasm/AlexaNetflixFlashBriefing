@@ -10,6 +10,10 @@ def lambda_handler(event, context):
     # ANZ Netflix
     anz_dict = get_content_for_region("anz")
     save_to_s3("anz", generate_json_from_dict("anz", anz_dict))
+
+    # CAN Netflix
+    can_dict = get_content_for_region("can")
+    save_to_s3("can", generate_json_from_dict("can", can_dict))
     return "success"
 
 # This function returns a dictionary of two lists of strings with keys: "added" and "removed"
