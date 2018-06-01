@@ -1,6 +1,8 @@
 # AlexaNetflixFlashBriefing
 An Amazon Alexa "flash briefing" skill that provides a summary of the content that was removed or added to Netflix that week.
 
+The skill can be found in the U.S. store here: https://www.amazon.com/dp/B07DD5SJY7. 
+
 The available Netflix regions are: USA, Canada, UK, Australia/New Zealand.
 
 This repository only contains source code for the AWS Lambda function needed to retrieve the relavant information and upload it to AWS S3 for hosting the JSON feed that the Alexa Voice Service will use.
