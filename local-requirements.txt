@@ -5,7 +5,7 @@ chardet==3.0.4
 docutils==0.14
 idna==2.8
 jmespath==0.9.3
-lxml==4.6.5
+lxml==4.9.1
 python-dateutil==2.7.5
 requests==2.21.0
 s3transfer==0.1.13
